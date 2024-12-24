@@ -69,8 +69,15 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -157,8 +164,57 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let resultStr = '';
+  for (let i = 0; i < numberStr.length; i += 1) {
+    const char = numberStr[i];
+    switch (char) {
+      case '0':
+        resultStr += 'zero ';
+        break;
+      case '1':
+        resultStr += 'one ';
+        break;
+      case '2':
+        resultStr += 'two ';
+        break;
+      case '3':
+        resultStr += 'three ';
+        break;
+      case '4':
+        resultStr += 'four ';
+        break;
+      case '5':
+        resultStr += 'five ';
+        break;
+      case '6':
+        resultStr += 'six ';
+        break;
+      case '7':
+        resultStr += 'seven ';
+        break;
+      case '8':
+        resultStr += 'eight ';
+        break;
+      case '9':
+        resultStr += 'nine ';
+        break;
+      case '-':
+        resultStr += 'minus ';
+        break;
+      case '.':
+      case ',':
+        resultStr += 'point ';
+        break;
+      default:
+        break;
+    }
+  }
+  let result = '';
+  for (let i = 0; i < resultStr.length - 1; i += 1) {
+    result += resultStr[i];
+  }
+  return result;
 }
 
 /**
@@ -244,8 +300,21 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let leftSum = 0;
+  let allSum = 0;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    allSum += arr[i];
+  }
+
+  for (let i = 0; i < arr.length; i += 1) {
+    if (leftSum === allSum - arr[i] - leftSum) {
+      return i;
+    }
+    leftSum += arr[i];
+  }
+  return -1;
 }
 
 /**
@@ -306,8 +375,19 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const newArr = arr;
+
+  for (let i = 0; i < newArr.length; i += 1) {
+    for (let k = 0; k < newArr.length - 1; k += 1) {
+      if (newArr[k] > newArr[k + 1]) {
+        const num = newArr[k + 1];
+        newArr[k + 1] = newArr[k];
+        newArr[k] = num;
+      }
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -327,8 +407,28 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let strResult = str;
+
+  for (let it = 0; it < iterations; it += 1) {
+    let stringOdd = '';
+    let stringEven = '';
+
+    for (let i = 0; i < strResult.length; i += 1) {
+      if (i % 2 === 0) {
+        stringEven += strResult[i];
+      } else {
+        stringOdd += strResult[i];
+      }
+    }
+    const newStr = stringEven + stringOdd;
+
+    if (newStr === strResult) {
+      break;
+    }
+    strResult = newStr;
+  }
+  return strResult;
 }
 
 /**
